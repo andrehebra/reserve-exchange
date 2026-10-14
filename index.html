@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A private reserve-day trade planner." />
+  <title>Reserve Trade Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Reserve desk companion</p>
+        <h1>Trade into a tougher pool.</h1>
+        <p class="lede">Mark your reserve days, paste the pool, then see which dates are fair trade targets at a glance.</p>
+      </div>
+      <div class="privacy-note"><span aria-hidden="true">⌁</span><div><strong>Stays in this browser</strong><br>Nothing is uploaded or shared.</div></div>
+    </header>
+
+    <section class="toolbar" aria-label="Month and planner controls">
+      <div class="month-switch" role="group" aria-label="Month">
+        <button type="button" class="month-button active" data-month-offset="0">This month</button>
+        <button type="button" class="month-button" data-month-offset="1">Next month</button>
+      </div>
+      <div class="mode-switch" role="group" aria-label="Calendar mode">
+        <button type="button" class="mode-button active" data-mode="plan">Plan a trade</button>
+        <button type="button" class="mode-button" data-mode="edit">Edit reserve days</button>
+        <button type="button" class="mode-button" data-mode="off">Pick days off</button>
+      </div>
+    </section>
+
+    <section class="app-grid">
+      <div class="calendar-panel panel">
+        <div class="panel-heading">
+          <div><p class="section-kicker">Your month</p><h2 id="month-title">Month</h2></div>
+          <button type="button" class="text-button" id="clear-month">Clear month</button>
+        </div>
+        <p class="instruction" id="instruction">Click a blue reserve day to find places you can trade it.</p>
+        <div class="weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div class="calendar" id="calendar" aria-label="Calendar"></div>
+        <div class="legend" aria-label="Calendar legend">
+          <span><i class="dot reserve"></i>Reserve day</span>
+          <span><i class="dot selected"></i>Trading from</span>
+          <span><i class="dot eligible"></i>Eligible trade</span>
+          <span><i class="dot off"></i>Want off</span>
+          <span><i class="dot no-data"></i>No pool data</span>
+        </div>
+      </div>
+
+      <aside class="side-column">
+        <section class="pool-panel panel">
+          <div class="panel-heading compact"><div><p class="section-kicker">Pool snapshot</p><h2>Paste the reserve pool</h2></div><span class="status" id="pool-status">No data yet</span></div>
+          <p class="muted">Paste the table exactly as copied from your site. Missing dates are left blank on the calendar.</p>
+          <textarea id="pool-input" spellcheck="false" aria-label="Reserve pool table" placeholder="Paste Date, Net Reserve, Min Level, and End Result here..."></textarea>
+          <div class="pool-actions"><button type="button" class="primary" id="parse-pool">Use this pool</button><button type="button" class="secondary" id="load-example">Try sample</button></div>
+          <p class="parse-message" id="parse-message" role="status"></p>
+        </section>
+
+        <section class="results-panel panel" id="results-panel">
+          <div class="panel-heading compact"><div><p class="section-kicker">Trade finder</p><h2 id="results-title">Choose a reserve day</h2></div></div>
+          <div id="results-content" class="results-empty">Your eligible days will appear here. A day qualifies when its <strong>End Result</strong> is more negative than the day you are trading away.</div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="suggestions panel" id="suggestions">
+      <div class="panel-heading"><div><p class="section-kicker">Days-off helper</p><h2>Build a schedule around what matters</h2></div><button type="button" class="text-button" id="clear-off">Clear days off</button></div>
+      <p class="muted">Switch to <strong>Pick days off</strong>, then tap dates you want protected. We’ll suggest a trade target for each protected reserve day using the toughest available pool day.</p>
+      <div id="off-summary" class="off-summary">No requested days off yet.</div>
+    </section>
+
+    <footer><span>Eligibility is based on a strictly lower (more negative) End Result.</span><span>Always verify the final trade in your company system.</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

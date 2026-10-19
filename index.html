@@ -14,11 +14,8 @@
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">Reserve desk companion</p>
-        <h1>Trade into a tougher pool.</h1>
-        <p class="lede">Mark your reserve days, paste the pool, then see which dates are fair trade targets at a glance.</p>
+        <h1>Reserve Trade Planner</h1>
       </div>
-      <div class="privacy-note"><span aria-hidden="true">⌁</span><div><strong>Stays in this browser</strong><br>Nothing is uploaded or shared.</div></div>
     </header>
 
     <section class="toolbar" aria-label="Month and planner controls">
@@ -36,7 +33,7 @@
     <section class="app-grid">
       <div class="calendar-panel panel">
         <div class="panel-heading">
-          <div><p class="section-kicker">Your month</p><h2 id="month-title">Month</h2></div>
+          <h2 id="month-title">Month</h2>
           <button type="button" class="text-button" id="clear-month">Clear month</button>
         </div>
         <p class="instruction" id="instruction">Click a blue reserve day to find places you can trade it.</p>
@@ -53,28 +50,47 @@
 
       <aside class="side-column">
         <section class="pool-panel panel">
-          <div class="panel-heading compact"><div><p class="section-kicker">Pool snapshot</p><h2>Paste the reserve pool</h2></div><span class="status" id="pool-status">No data yet</span></div>
-          <p class="muted">Paste the table exactly as copied from your site. Missing dates are left blank on the calendar.</p>
+          <div class="panel-heading compact"><h2>Reserve pool</h2><span class="status" id="pool-status">No data yet</span></div>
           <textarea id="pool-input" spellcheck="false" aria-label="Reserve pool table" placeholder="Paste Date, Net Reserve, Min Level, and End Result here..."></textarea>
           <div class="pool-actions"><button type="button" class="primary" id="parse-pool">Use this pool</button><button type="button" class="secondary" id="load-example">Try sample</button></div>
           <p class="parse-message" id="parse-message" role="status"></p>
         </section>
 
         <section class="results-panel panel" id="results-panel">
-          <div class="panel-heading compact"><div><p class="section-kicker">Trade finder</p><h2 id="results-title">Choose a reserve day</h2></div></div>
-          <div id="results-content" class="results-empty">Your eligible days will appear here. A day qualifies when its <strong>End Result</strong> is more negative than the day you are trading away.</div>
+          <div class="panel-heading compact"><h2 id="results-title">Choose a reserve day</h2></div>
+          <div id="results-content" class="results-empty">Eligible dates appear here after you select a reserve day.</div>
         </section>
       </aside>
     </section>
 
     <section class="suggestions panel" id="suggestions">
-      <div class="panel-heading"><div><p class="section-kicker">Days-off helper</p><h2>Build a schedule around what matters</h2></div><button type="button" class="text-button" id="clear-off">Clear days off</button></div>
-      <p class="muted">Switch to <strong>Pick days off</strong>, then tap dates you want protected. We’ll suggest a trade target for each protected reserve day using the toughest available pool day.</p>
+      <div class="panel-heading"><h2>Days off</h2><button type="button" class="text-button" id="clear-off">Clear days off</button></div>
       <div id="off-summary" class="off-summary">No requested days off yet.</div>
     </section>
 
-    <footer><span>Eligibility is based on a strictly lower (more negative) End Result.</span><span>Always verify the final trade in your company system.</span></footer>
+    <section class="open-time panel" aria-labelledby="open-time-title">
+      <div class="panel-heading">
+        <div><h2 id="open-time-title">Open time</h2><p class="muted">Paste the list view from Open Time. Pairings are filtered by your settings and days marked as reserve.</p></div>
+        <span class="status" id="open-time-status">No pairings loaded</span>
+      </div>
+      <div class="open-time-controls">
+        <label>Base<select id="open-base"><option value="">All bases</option></select></label>
+        <label>Aircraft<select id="open-aircraft"><option value="">All aircraft</option></select></label>
+        <label>Position<select id="open-position"><option value="">All positions</option></select></label>
+        <label>Rank by<select id="open-sort"><option value="credit">Highest credit</option><option value="tafb-short">Shortest TAFB</option><option value="tafb-long">Longest TAFB</option><option value="report">Earliest report</option></select></label>
+      </div>
+      <textarea id="open-time-input" spellcheck="false" aria-label="Open Time pairings" placeholder="Paste the Open Time list, including the Pairing / Dom / A/C / Pos / Report / Release / Credit / TAFB columns..."></textarea>
+      <div class="pool-actions"><button type="button" class="primary" id="parse-open-time">Show pairings</button><button type="button" class="secondary" id="clear-open-time">Clear</button></div>
+      <p class="parse-message" id="open-time-message" role="status"></p>
+      <div class="open-time-calendar-heading"><button type="button" class="text-button" id="open-prev">Previous month</button><div class="open-time-summary" id="open-time-summary"></div><button type="button" class="text-button" id="open-next">Next month</button></div>
+      <h3 id="open-time-month" class="open-time-month">Open Time calendar</h3>
+      <div class="open-time-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+      <div class="open-time-calendar" id="open-time-calendar" aria-label="Eligible open time calendar"></div>
+      <div class="open-time-list" id="open-time-list"></div>
+    </section>
+
+    <footer><span>Eligibility is based on the filters you choose and reserve days you mark.</span><span>Always verify pickup legality and pay in your company system.</span></footer>
   </main>
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
